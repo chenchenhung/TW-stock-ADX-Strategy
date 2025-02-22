@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 
 # ----------------------------
-# 1. 直接從網路下載台股指數的歷史資料 (2000/01/01 - 2025/01/01)
+# 1. 使用台股指數的歷史資料 (2000/01/01 - 2025/01/01)
 # ----------------------------
 df = pd.read_csv("taiwan_stock_data.csv")
 
@@ -128,7 +128,7 @@ print(df[['Close', 'ADX', 'MA_short', 'MA_long', 'trend_signal',
 plt.figure(figsize=(14,16))
 
 # 上半部：價格走勢與策略部位
-ax1 = plt.subplot(4,1,1)
+ax1 = plt.subplot(3,1,1)
 plt.title('TW stock ADX methods')
 plt.plot(df.index, df['Close'], label='Close Price', color='black', alpha=0.7)
 plt.plot(df.index, df['MA_short'], label='MA Short (20)', color='blue', alpha=0.6)
@@ -140,7 +140,7 @@ plt.ylabel('Price')
 plt.legend()
 plt.grid(True)
 # 標示多空訊號
-ax1 = plt.subplot(4,1,2)
+ax1 = plt.subplot(3,1,2)
 buy_signals = df[df['final_position'] == 1]
 sell_signals = df[df['final_position'] == -1]
 plt.scatter(buy_signals.index, buy_signals['Close'], marker='^', color='green', label='Buy', s=80)
@@ -151,7 +151,7 @@ plt.grid(True)
 
 
 # 下半部：累積策略報酬率
-ax2 = plt.subplot(4,1,3)
+ax2 = plt.subplot(3,1,3)
 plt.plot(df.index, df['cumulative_return']*100, label='Cumulative Return', color='blue')
 plt.title('策略累積報酬率(%)')
 plt.xlabel('Date')
